@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ ! -z "${OSC_HOSTNAME}" ]]; then
-  export LOGFLARE_NODE_HOST = "${OSC_HOSTNAME}"
+  export LOGFLARE_NODE_HOST="${OSC_HOSTNAME}"
 fi
 
 export LOGFLARE_SINGLE_TENANT="true"
