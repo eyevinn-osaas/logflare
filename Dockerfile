@@ -63,6 +63,8 @@ ENV LC_ALL en_US.UTF-8
 COPY --from=builder app/_build/prod /opt/app
 COPY --from=builder app/VERSION /opt/app/VERSION
 COPY --from=builder app/priv/static /opt/app/rel/logflare/bin/priv/static
+COPY --from=builder app/entrypoint.sh /opt/app/rel/logflare/bin/docker-entrypoint.sh
+RUN chmod +x /opt/app/rel/logflare/bin/docker-entrypoint.sh
 
 # Move files to the correct folder taking into consideration the VERSION
 RUN cp -r /opt/app/rel/logflare/bin/priv/static /opt/app/rel/logflare/lib/logflare-$(cat /opt/app/VERSION)/priv/static
@@ -72,4 +74,6 @@ RUN rm -r /opt/app/rel/logflare/bin/priv
 
 WORKDIR /opt/app/rel/logflare/bin
 COPY run.sh ./run.sh
+
+ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD ["sh", "run.sh"]
